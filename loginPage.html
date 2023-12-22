@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="loginStyle.css">
+</head>
+<body>
+    <img src="DJGLogo_Black4-removebg-preview.png" alt="DJLogo" id="immg">
+
+    <div id="divv">
+        <div class="box">
+            <form>
+                <img src="DJGLogo_Black.png" alt="DJLogo" id="immg2">
+                <h2>Sign in</h2>
+                <div class="inputBox">
+                    <input type="text" required="required" id="unameTxt">
+                    <span>Username</span>
+                    <i></i>
+                </div>
+                <div class="inputBox">
+                    <input type="password" required="required" id="passTxt">
+                    <span>Password</span>
+                    <i></i>
+                </div>
+                <input type="button" value="Login" onclick="loginVerification()">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let win;
+        document.addEventListener('contextmenu', event => event.preventDefault());
+    
+        function loginVerification() {
+            const uname = document.getElementById('unameTxt').value;
+            const pass = document.getElementById('passTxt').value;
+            let username, password;
+    
+            // Corrected 'height' typo in the window features string
+            win = window.open("loginVerification.html", "login", "width=10, height=10");
+            
+            // Added a check for the existence of win.document
+            if (win && win.document) {
+                win.onload = function() {
+                    // Corrected 'text' to 'value' when getting username and password
+                    username = win.document.getElementById('uname').textContent;
+                    password = win.document.getElementById('pass').textContent;
+                    
+                    // Close the pop-up window after retrieving credentials
+                    win.close();
+    
+                    // Perform verification after the window is closed
+                    if (uname === username && pass === password) {
+                        alert('Verified Sucessfully. Navigating you to Billing Section!!');
+                    } else {
+                        alert('Invalid Credential Entered.');
+                    }
+                }
+            } else {
+                // Handle the case where the pop-up window couldn't be opened
+                alert('Error opening the verification window');
+            }
+        }
+    </script>    
+</body>
+</html>
